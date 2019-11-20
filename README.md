@@ -1,12 +1,13 @@
-# Fastqins
+# fastqins
 Pipeline for transposon analyses
 
 ## Tools needed
   Bio<br />
   Fastuniq<br />
   Bowtie2<br />
-  Samtools
-  
+  Samtools<br/>
+  Bedtools
+
 ## Example data
 
 ## Command line example
