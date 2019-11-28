@@ -1,0 +1,3 @@
+@HD	VN:1.0	SO:unsorted
+@SQ	SN:NC_000912.1	LN:816394
+@PG	ID:bowtie2	PN:bowtie2	VN:2.3.4.1	CL:"/usr/bin/bowtie2-align-s --wrapper basic-0 -p 1 -x wk/bedtest_read2_intermediate_files/mycoplasma_pneumoniae_m129 -N 0 -S wk/bedtest_read2_intermediate_files/bedtest_read2.sam -1 wk/bedtest_read2_intermediate_files/bedtest_read1.filt -2 wk/bedtest_read2_intermediate_files/bedtest_read2.tn"

@@ -1,0 +1,2 @@
+pt/bedtest_read2_intermediate_files/bedtest_read2.fastq
+pt/bedtest_read2_intermediate_files/bedtest_read1.fastq
