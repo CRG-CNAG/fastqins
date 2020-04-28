@@ -59,5 +59,5 @@ If you experience any problem at any step involving the program, you can use the
 
 FASTQINS is under a common GNU GENERAL PUBLIC LICENSE. Plese, check [LICENSE](./LICENSE) for further information.
 
-######## [2020] - Centre de Regulació Genòmica (CRG) - All Rights Reserved*
+###### [2020] - Centre de Regulació Genòmica (CRG) - All Rights Reserved*
 
