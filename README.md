@@ -1,14 +1,34 @@
-# fastqins
-Pipeline for transposon analyses
+# FASTQINS
+FASTQINS is a Python pipeline to map transponson insertions from Tn-seq data. 
 
-## Tools needed
-  Bio<br />
-  Fastuniq<br />
-  Bowtie2<br />
-  Samtools<br/>
-  Bedtools
+## Requirements
+  [Fastuniq](https://sourceforge.net/projects/fastuniq/) <br /> 
+  [Bowtie2](http://bowtie-bio.sourceforge.net/bowtie2/manual.shtml)<br />
+  [Samtools](http://www.htslib.org/)<br/>
+  [Bedtools](https://bedtools.readthedocs.io/en/latest/)
 
-## Example data
+## Installation & Help
 
-## Command line example
-`python /software/ls/fastqins/fastqins_web.py -i1 /users/lserrano/smiravet/ins_results/web_tests/test_read1.fastq.gz -i2 /users/lserrano/smiravet/ins_results/web_tests/test_read2.fastq.gz -t TACGGACTTTATC -g /users/lserrano/www/reference_genome/mycoplasma_pneumoniae_m129.gbk -o /users/lserrano/smiravet/ins_results/web_tests/your_test/ -p 1 -v -r 0`
+Download this repository and run:
+
+`python3 setup.py install`
+
+You may require to call it using sudo. Once installed, `fastqins` should be available anywhere in your terminal. 
+
+## Example
+
+Requirements to run an experiment are: 
+
+  -i <fastq files with transposon mapped, if no -i2 is passed, single-end mapping by default>
+  -t <IR transposon sequence, expected to be found contiguous genome sequence>
+  -g <genome sequence, fasta or genbank format>
+  -o <output directory to locate the results>
+
+As example, we included a pair of files that you can use to test the pipeline functioning as:
+
+`fastqins -i ./test/test_read2.fastq.gz -i2 ./test/test_read2.fastq.gz -t TACGGACTTTATC -g ./test/NC_000912.fna -o test -v -r 0`
+
+To see additional arguments:
+`fastqins --help`
+
+### 2020 - Centre de Regulacio Genomica (CRG) - All Rights Reserved
