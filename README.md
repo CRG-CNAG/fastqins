@@ -31,4 +31,5 @@ As example, we included a pair of files that you can use to test the pipeline fu
 To see additional arguments:
 `fastqins --help`
 
-### 2020 - Centre de Regulacio Genomica (CRG) - All Rights Reserved
+
+###### 2020 - Centre de Regulacio Genomica (CRG) - All Rights Reserved
