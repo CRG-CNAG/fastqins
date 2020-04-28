@@ -19,7 +19,9 @@ In addition, we have as dependencies standard tools commonly used in high-throug
 
 Download this repository and run:
 
-`python3 setup.py install`
+```bash
+python3 setup.py install
+```
 
 You may require to call it using sudo. Once installed, `fastqins` should be available anywhere in your terminal. 
 
@@ -34,13 +36,28 @@ Requirements to run an experiment are:
 
 As example, we included a pair of files that you can use to test the pipeline functioning as:
 
-`fastqins -i ./test/test_read2.fastq.gz -i2 ./test/test_read2.fastq.gz -t TACGGACTTTATC -g ./test/NC_000912.fna -o test -v -r 0`
+```bash
+fastqins -i ./test/test_read2.fastq.gz -i2 ./test/test_read2.fastq.gz -t TACGGACTTTATC -g ./test/NC_000912.fna -o test -v -r 0
+```
 
 To see additional arguments:
-`fastqins --help`
-
+```bash
+fastqins --help
+```
+ 
 ## Contact
 
+This project has been fully developed at [Centre for Genomic Regulation](http://www.crg.eu/) at the group of [Design of Biological Systems](http://www.crg.eu/en/luis_serrano).
 
+If you experience any problem at any step involving the program, you can use the 'Issues' page of this repository or contact:
 
-###### 2020 - Centre de Regulacio Genomica (CRG) - All Rights Reserved
+[Miravet-Verde, Samuel](mailto:samuel.miravet@crg.eu)       
+[Lluch-Senar, Maria](mailto:maria.lluch@crg.eu)       
+[Serrano, Luis](mailto:luis.serrano@crg.eu)
+
+## License
+
+FASTQINS is under a common GNU GENERAL PUBLIC LICENSE. Plese, check [LICENSE](./LICENSE) for further information.
+
+*[2020] - Centre de Regulació Genòmica (CRG) - All Rights Reserved*
+
