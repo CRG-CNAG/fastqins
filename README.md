@@ -2,6 +2,14 @@
 FASTQINS is a Python pipeline to map transponson insertions from Tn-seq data. 
 
 ## Requirements
+Specific libraries are required by FASTQINS. We provide a [requirements](./requirements.txt) file to install everything at once. To do so, you will need first to have [pip](https://pip.pypa.io/en/stable/installing/) installed and then run:
+
+```bash
+sudo apt-get install python-pip    # if you need to install pip
+pip install -r requirements.txt
+```
+In addition, we have as dependencies standard tools commonly used in high-throughput sequencing analysis:
+
   [Fastuniq](https://sourceforge.net/projects/fastuniq/) <br /> 
   [Bowtie2](http://bowtie-bio.sourceforge.net/bowtie2/manual.shtml)<br />
   [Samtools](http://www.htslib.org/)<br/>
@@ -30,6 +38,9 @@ As example, we included a pair of files that you can use to test the pipeline fu
 
 To see additional arguments:
 `fastqins --help`
+
+## Contact
+
 
 
 ###### 2020 - Centre de Regulacio Genomica (CRG) - All Rights Reserved
