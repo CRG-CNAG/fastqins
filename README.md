@@ -22,7 +22,7 @@ Requirements to run an experiment are:
   -i <fastq files with transposon mapped, if no -i2 is passed, single-end mapping by default>  <br />  
   -t <IR transposon sequence, expected to be found contiguous genome sequence>  <br /> 
   -g <genome sequence, fasta or genbank format>  <br /> 
-  -o <output directory to locate the results> 
+  -o <output directory to locate the results>  <br /> 
 
 As example, we included a pair of files that you can use to test the pipeline functioning as:
 
