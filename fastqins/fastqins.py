@@ -24,17 +24,7 @@ import numpy as np
 from ruffus import *
 from Bio import SeqIO
 from collections import Counter
-
-# --------------------------------------------------
-# dependencies #
-# Edit this section to full paths and reinstall if
-# programs not accessible in every part of the system
-# --------------------------------------------------
-
-fastuniq = 'fastuniq'
-bowtie2  = 'bowtie2'
-samtools = 'samtools'
-bedtools = 'bedtools'
+from .dependencies import fastuniq, bowtie2, samtools, bedtools
 
 # --------------------------------------------------
 # general functions
@@ -622,8 +612,15 @@ if __name__=='__main__':
     basename = options.tn_reads.split('/')[-1].split('.')[0]
     intermediate_dir = '{}/{}_intermediate_files/'.format(options.output_folder, basename)
     cmd = 'mv {}*.qins {}*.bam {}*.log {}/'.format(intermediate_dir, intermediate_dir, intermediate_dir, options.output_folder)
-    print(cmd)
     os.system(cmd)
+
+    print('Finished! You will find the following files in your directory:
+
+    *_fw.qins - read counts of insertions mapping to forward strand
+    *_rv.qins - read counts of insertions mapping to reverse strand
+    *.qins - read counts of insertions mapping to both strands
+    *.bam - file generated with the aligned reads. Allows visual revision and additional processing
+    *.log - log file with general features of the process run\n\n')
 
     if options.rm_inter:
         print('CLEANING...................')
