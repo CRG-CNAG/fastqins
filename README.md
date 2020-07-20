@@ -1,13 +1,22 @@
-# FASTQINS
+---
+
+<p align="center">
+  <img src=".logo/fastqins.png"/>
+</p>
+
 FASTQINS is a Python pipeline to map transponson insertions from Tn-seq data. 
 
 ## Requirements
 Specific libraries are required by FASTQINS. We provide a [requirements](./requirements.txt) file to install everything at once. To do so, you will need first to have [pip](https://pip.pypa.io/en/stable/installing/) installed and then run:
 
 ```bash
-sudo apt-get install python-pip    # if you need to install pip
-pip install -r requirements.txt
+pip3 --version                      # Check if installed
+sudo apt-get install python3-pip    # if you need to install pip, you can check installation with the previous command
+pip3 install -r requirements.txt
+
 ```
+
+
 In addition, we have as dependencies standard tools commonly used in high-throughput sequencing analysis:
 
   [Fastuniq](https://sourceforge.net/projects/fastuniq/) <br /> 
