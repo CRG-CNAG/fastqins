@@ -56,7 +56,7 @@ parser.add_argument('-t', '--tn_seq',
                     help="Inverted Repeat Transposon sequence to trim. Default= TACGGACTTTATC")
 parser.add_argument('-g', '--genome',
                     dest="genome",
-                    default="/users/lserrano/www/reference_genome/mycoplasma_pneumoniae_m129.gbk",
+                    required=True,
                     type=str,
                     help="Genome of reference to map insertions. Default= /users/lserrano/www/reference_genome/mycoplasma_pneumoniae_m129.gbk")
 parser.add_argument('-o', '--output_folder',

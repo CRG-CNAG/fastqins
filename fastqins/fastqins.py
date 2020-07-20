@@ -26,14 +26,10 @@ from Bio import SeqIO
 from collections import Counter
 
 # --------------------------------------------------
-# dependencies
+# dependencies #
+# Edit this section to full paths and reinstall if
+# programs not accessible in every part of the system
 # --------------------------------------------------
-softdir  = '/software/ls/'
-sys.path.insert(0, softdir+"fastqins")
-fastuniq = softdir+'FastUniq/source/fastuniq'
-bowtie2  = softdir+'bowtie2-2.2.9/bowtie2'
-samtools = softdir+'/samtools-1.4/samtools'
-bedtools = softdir+'bedtools2/bedtools'
 
 fastuniq = 'fastuniq'
 bowtie2  = 'bowtie2'
@@ -106,12 +102,12 @@ def create_log_file(output_file, kwargs):
 #########################################
 FastQins: Pipeline to analyze Tn-seq data.
 #########################################
-
-Python >=2.7 (>3 included) |
+Python >=2.7 (>=3 included) |
 Author: Miravet-Verde, Samuel |
-Last updated: 2019.11.21 |
+Last updated: 2020.07.20 |
 Affiliation: Center for Genomic Regulation, Luis Serrano's lab |
-email: samuelmiver@gmail.com; samuel.miravet@crg.eu |\n\n"""
+email: samuelmiver@gmail.com; samuel.miravet@crg.eu |\n\n
+"""
     separator = '\n-----------------\n\n'
     with open(output_file, 'w') as logfile:
         logfile.write(pipelineDoc)
@@ -261,6 +257,57 @@ def count_insertions(i, o):
         for k, v in i1i2.items():
             fo.write('{}\t{}\n'.format(k, v))
 
+def finish_log_file(i, o, tn_seq, genome, flag_pcr=False):
+    """
+    Adds quality of the process information to the log file
+    i = [fastq_dir, fastq_filt, fastq_tn, forward ins, reverse ins, ins, log file]"""
+    genome_length = return_genome_lentgh(genome)
+    # Compute stats:
+    cmd = "awk '{s++}END{print s/4}' "+i[0]
+    nr_reads = float(subprocess.check_output(cmd, shell=True).strip())
+
+    cmd = "awk '{s++}END{print s/4}' "+i[1]
+    nr_remain = float(subprocess.check_output(cmd, shell=True).strip())
+    if flag_pcr:
+        filt_line = str(int(nr_remain))+" ("+str(round(100.0*nr_remain/nr_reads, 2))+"%) passed the PCR duplicates filter; of these:"
+    else:
+        filt_line = "PCR duplicate removal not selected. "+str(int(nr_reads))+" considered; of these:"
+
+    cmd = "cat "+i[2]+" | wc -l"
+    nr_IR = float(subprocess.check_output(cmd, shell=True).strip())
+
+    cmd = "cat "+i[3]+" "+i[4]+" | wc -l"
+    nr_Tn = float(subprocess.check_output(cmd, shell=True).strip())
+    cmd = "cat "+i[5]+ "| wc -l"
+    nr_pos = int(subprocess.check_output(cmd, shell=True).strip())
+    if nr_pos!=0:
+        cmd = "awk '{sum+=$3} END{print sum}' "+i[4]
+        nr_post_reads = int(subprocess.check_output(cmd, shell=True).strip())
+    else:
+        nr_post_reads = 0
+    # Write log
+    separator = '\n-----------------\n\n'
+
+    with open(i[-1], 'a') as logfile:
+        logfile.write(separator+'FASTQINS INFORMATION:\n\n')
+        text = "{0} reads provided; of these:\n  ".format(int(nr_reads))+filt_line
+        text+= "\n    {0} ({1}%) presented the IR:{2} sequence; of these:\n      ".format(int(nr_IR), round(100.0*nr_IR/nr_remain, 2), tn_seq)
+        text+= "{0} having IR ({1}%) were mapped unambiguously; in total:\n        ".format(int(nr_Tn), round(100.0*nr_Tn/nr_IR, 2))
+        text+= "{0} insertion positions can be extracted from {1} reads\n".format(nr_pos, nr_post_reads)
+        text+= "{0}% of the sample was informative: ".format(round(100.0*nr_Tn/nr_reads, 2))
+        text+= "{0}% coverage (number of insertions per genome base).".format(round(100*int(nr_pos)/int(genome_length)))
+        logfile.write(text)
+        logfile.write(separator+'OUTPUT INFORMATION:\n\n')
+        logfile.write('The following files are generated as default output:\n')
+        text  =  "\t- *_fw.qins - read counts of insertions mapping to forward strand\n"
+        text +=  "\t- *_rv.qins - read counts of insertions mapping to reverse strand\n"
+        text +=  "\t- *.qins - read counts of insertions mapping to both strands\n"
+        text +=  "\t- *.bam - file generated with the aligned reads. Allows visual revision and additional processing\n"
+        text +=  "\t- *.log - log file with general features of the process run\n"
+        logfile.write(text)
+
+
+
 # --------------------------------------------------
 # pipeline control
 # --------------------------------------------------
@@ -270,7 +317,7 @@ def fastqins(tn_reads, genome,
              separate_orientations=1, rm_pcr=1, barcode_size=0, mismatches=0, extension='',
              threads=1, align_qual=10,
              ins_calling='bed', zeroes=False, keep_multiple=False,
-             rm_inter=0, verbose=False):
+             rm_inter=0, verbose=False, printout_pipeline=True):
     """ Main function to run the fastqins pipeline. """
 
     tn_seq = tn_seq.upper()
@@ -439,12 +486,24 @@ def fastqins(tn_reads, genome,
                             input          = [fastqins_pipeline[ins_calling+'_fw_insertion_calling'], fastqins_pipeline[ins_calling+'_rv_insertion_calling']],
                             output         = intermediate_dir+tn_basename+'.qins') # Count insertions
 
+    fastqins_pipeline.merge(task_func  = finish_log_file,
+                            input      = [inputtnc,
+                                          fastqins_pipeline['tn_trimming'],
+                                          fastqins_pipeline['len_mult_selection'],
+                                          fastqins_pipeline[ins_calling+'_fw_insertion_calling'],
+                                          fastqins_pipeline[ins_calling+'_rv_insertion_calling'],
+                                          fastqins_pipeline['count_insertions'],
+                                          fastqins_pipeline['create_log_file']],
+                            output     = '{}{}.tmplog'.format(intermediate_dir, basename),
+                            extras     = [tn_seq, genome, rm_pcr]).follows(fastqins_pipeline['count_insertions'])
+
     # Printout pipeline
-    fastqins_pipeline.printout_graph(stream = 'flowchart.svg',
-                                     pipeline_name   = 'fastqins | {} mode'.format(ins_calling),
-                                     output_format   = 'svg',
-                                     no_key_legend   = False,
-                                     draw_vertically = True)
+    if printout_pipeline:
+        fastqins_pipeline.printout_graph(stream = 'flowchart.svg',
+                                         pipeline_name   = 'fastqins | {} mode'.format(ins_calling),
+                                         output_format   = 'svg',
+                                         no_key_legend   = False,
+                                         draw_vertically = True)
 
 #    fastqins_pipeline.transform(task_func  = empty_transform,
 #                                input      = fastqins_pipeline['merge_and_count'],

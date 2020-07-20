@@ -59,7 +59,16 @@ To see additional arguments:
 ```bash
 fastqins --help
 ```
- 
+
+##  Output Information:
+
+The following files are generated as default output:
+- \*_fw.qins - read counts of insertions mapping to forward strand
+- \*_rv.qins - read counts of insertions mapping to reverse strand
+- \*.qins - read counts of insertions mapping to both strands
+- \*.bam - file generated with the aligned reads. Allows visual revision and additional processing
+- \*.log - log file with general features of the process run
+
 ## Contact
 
 This project has been fully developed at [Centre for Genomic Regulation](http://www.crg.eu/) at the group of [Design of Biological Systems](http://www.crg.eu/en/luis_serrano).
