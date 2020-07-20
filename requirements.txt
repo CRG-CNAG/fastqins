@@ -1,8 +1,4 @@
-re
-glob
 argparse
-subprocess
 numpy
 ruffus
 Bio
-collections

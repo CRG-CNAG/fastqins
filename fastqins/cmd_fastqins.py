@@ -8,10 +8,10 @@
 # --------------------------------------------------
 import sys, os
 import argparse
-from fastqins import fastqins as fq
+from fastqins.fastqins import fastqins as fq
 
 def run_fastqins():
-    fq(tn_reads=options.tn_reads  , paired_reads=options.paired_reads,
+    fq(tn_reads=options.tn_reads, paired_reads=options.paired_reads,
        tn_seq=options.tn_seq,
        genome=options.genome,
        output_folder=options.output_folder,
@@ -22,13 +22,14 @@ def run_fastqins():
        ins_calling=options.ins_calling, zeroes=options.zeroes, keep_multiple=options.keep_multiple,
        rm_inter=options.rm_inter, verbose=options.verbose)
 
+    print('Moving files...')
+    basename = options.tn_reads.split('/')[-1].split('.')[0]
+    intermediate_dir = '{}/{}_intermediate_files/'.format(options.output_folder, basename)
+    cmd = 'mv {}*.qins {}*.bam {}*.log {}/'.format(intermediate_dir, intermediate_dir, intermediate_dir, options.output_folder)
+    print(cmd)
+    os.system(cmd)
+
     if options.rm_inter:
-        print('CLEANING...................')
-        basename = options.tn_reads.split('/')[-1].split('.')[0]
-        intermediate_dir = '{}/{}_intermediate_files/'.format(options.output_folder, basename)
-        cmd = 'mv {}*.qins {}*.bam {}*.log {}/'.format(intermediate_dir, intermediate_dir, intermediate_dir, options.output_folder)
-        print(cmd)
-        os.system(cmd)
         cmd = 'rm -fR {}'.format(intermediate_dir)
         print(cmd)
         os.system(cmd)
@@ -107,7 +108,7 @@ parser.add_argument('-ic', '--ins_calling',
                     dest="ins_calling",
                     default='bed',
                     type=str,
-                    help="Mode to map insertions:\n\t-awk [problems with Ins/Del]\n\t-pyt [faster for small datasets]\n\t-bed [default, more efficient for general cases")
+                    help="Mode to map insertions:\n\t-awk [problems with Ins/Del]\n\t-pyt [faster for small datasets]\n\t-bed [default, more efficient for general cases]")
 parser.add_argument('-z', "--zeroes",
                     dest="zeroes",
                     action="store_true",

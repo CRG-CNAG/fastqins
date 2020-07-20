@@ -23,7 +23,13 @@ Download this repository and run:
 python3 setup.py install
 ```
 
-You may require to call it using sudo. Once installed, `fastqins` should be available anywhere in your terminal. 
+You may require to call it using sudo. Once installed, `fastqins` should be available anywhere in your terminal.
+
+In the case you need to install the package in a specific directory of your system, you can call the argument *--install-lib* followed by a directory path:
+
+```bash
+python3 setup.py install --install-lib /custom/path/
+```
 
 ## Example
 
@@ -37,7 +43,7 @@ Requirements to run an experiment are:
 As example, we included a pair of files that you can use to test the pipeline functioning as:
 
 ```bash
-fastqins -i ./test/test_read2.fastq.gz -i2 ./test/test_read2.fastq.gz -t TACGGACTTTATC -g ./test/NC_000912.fna -o test -v -r 0
+fastqins -i ./test/test_read2.fastq.gz -i2 ./test/test_read1.fastq.gz -t TACGGACTTTATC -g ./test/NC_000912.fna -o test -v -r 0
 ```
 
 To see additional arguments:
@@ -51,8 +57,8 @@ This project has been fully developed at [Centre for Genomic Regulation](http://
 
 If you experience any problem at any step involving the program, you can use the 'Issues' page of this repository or contact:
 
-[Miravet-Verde, Samuel](mailto:samuel.miravet@crg.eu)       
-[Lluch-Senar, Maria](mailto:maria.lluch@crg.eu)       
+[Miravet-Verde, Samuel](mailto:samuel.miravet@crg.eu)
+[Lluch-Senar, Maria](mailto:maria.lluch@crg.eu)
 [Serrano, Luis](mailto:luis.serrano@crg.eu)
 
 ## License
