@@ -1,0 +1,70 @@
+
+#########################################
+FastQins: Pipeline to analyze Tn-seq data.
+#########################################
+Python >=2.7 (>=3 included) |
+Author: Miravet-Verde, Samuel |
+Last updated: 2020.07.20 |
+Affiliation: Center for Genomic Regulation, Luis Serrano's lab |
+email: samuelmiver@gmail.com; samuel.miravet@crg.eu |
+
+
+Execution info
+-----------------
+version:FASTQINS v1.0
+-----------------
+
+GENERAL INFORMATION:
+
+Tn reads:/home/smiravet/crg/anubis/fastqins/test/test_read2.fastq.gz
+Paired reads:/home/smiravet/crg/anubis/fastqins/test/test_read2.fastq.gz
+TnSeq:TACGGACTTTATC
+Genome:/home/smiravet/crg/anubis/fastqins/test/NC_000912.fna
+OutDir:test/
+PCR dup removal:1
+Mismatches:0
+Mapping threads:1
+Minimum quality alignment:10
+Insertion caller:bed
+Zeroes:False
+Keep reads multiple mapping:False
+-----------------
+
+BOWTIE2 ALIGN. INFORMATION:
+
+92904 reads; of these:
+  92904 (100.00%) were paired; of these:
+    92904 (100.00%) aligned concordantly 0 times
+    0 (0.00%) aligned concordantly exactly 1 time
+    0 (0.00%) aligned concordantly >1 times
+    ----
+    92904 pairs aligned concordantly 0 times; of these:
+      0 (0.00%) aligned discordantly 1 time
+    ----
+    92904 pairs aligned 0 times concordantly or discordantly; of these:
+      185808 mates make up the pairs; of these:
+        103620 (55.77%) aligned 0 times
+        70954 (38.19%) aligned exactly 1 time
+        11234 (6.05%) aligned >1 times
+44.23% overall alignment rate
+
+-----------------
+
+FASTQINS INFORMATION:
+
+92904 reads provided; of these:
+  92904 (100.0%) passed the PCR duplicates filter; of these:
+    86455 (93.06%) presented the IR:TACGGACTTTATC sequence; of these:
+      49047 having IR (56.73%) were mapped unambiguously; in total:
+        47724 insertion positions can be extracted from 36424 reads
+52.79% of the sample was informative: 6% coverage (number of insertions per genome base).
+-----------------
+
+OUTPUT INFORMATION:
+
+The following files are generated as default output:
+	- *_fw.qins - read counts of insertions mapping to forward strand
+	- *_rv.qins - read counts of insertions mapping to reverse strand
+	- *.qins - read counts of insertions mapping to both strands
+	- *.bam - file generated with the aligned reads. Allows visual revision and additional processing
+	- *.log - log file with general features of the process run
