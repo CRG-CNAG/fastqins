@@ -34,7 +34,7 @@ def run_fastqins():
         print(cmd)
         os.system(cmd)
 
-    print('Finished! You will find the following files in your directory:\n\t*_fw.qins - read counts of insertions mapping to forward strand\n\t*_rv.qins - read counts of insertions mapping to reverse strand\    ↪\n\t*.qins - read counts of insertions mapping to both strands\n\t*.bam - file generated with the aligned reads. Allows visual revision and additional processing\n\t*.log - log file with general features of     ↪\the process run\n\n')
+    print('Finished! You will find the following files in your directory:\n\t*_fw.qins - read counts of insertions mapping to forward strand\n\t*_rv.qins - read counts of insertions mapping to reverse strand\n\t*.qins - read counts of insertions mapping to both strands\n\t*.bam - file generated with the aligned reads. Allows visual revision and additional processing\n\t*.log - log file with general features of the process run\n\n')
 
 
 # --------------------------------------------------
