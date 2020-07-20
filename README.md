@@ -24,6 +24,8 @@ In addition, we have as dependencies standard tools commonly used in high-throug
   [Samtools](http://www.htslib.org/)<br/>
   [Bedtools](https://bedtools.readthedocs.io/en/latest/)
 
+Path to this dependencies can still be defined by the user editing the file [dependencies](./bin/dependencies.py).
+
 ## Installation & Help
 
 Download this repository and run:
@@ -63,11 +65,11 @@ fastqins --help
 ##  Output Information:
 
 The following files are generated as default output:
-- \*_fw.qins - read counts of insertions mapping to forward strand
-- \*_rv.qins - read counts of insertions mapping to reverse strand
-- \*.qins - read counts of insertions mapping to both strands
-- \*.bam - file generated with the aligned reads. Allows visual revision and additional processing
-- \*.log - log file with general features of the process run
+- \*_fw.qins - read counts of insertions mapping to forward strand [example](./test/output_test/test_read2_fw.qins)
+- \*_rv.qins - read counts of insertions mapping to reverse strand [example](./test/output_test/test_read2_rv.qins)
+- \*.qins - read counts of insertions mapping to both strands [example](./test/output_test/test_read2.qins)
+- \*.bam - file generated with the aligned reads
+- \*.log - log file with general features of the process run [example](./test/output_test/test_read2.log)
 
 ## Contact
 
