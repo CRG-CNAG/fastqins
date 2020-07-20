@@ -65,11 +65,11 @@ fastqins --help
 ##  Output Information:
 
 The following files are generated as default output:
-- \*_fw.qins - read counts of insertions mapping to forward strand [example](./test/output_test/test_read2_fw.qins)
-- \*_rv.qins - read counts of insertions mapping to reverse strand [example](./test/output_test/test_read2_rv.qins)
-- \*.qins - read counts of insertions mapping to both strands [example](./test/output_test/test_read2.qins)
+- \*_fw.qins - read counts of insertions mapping to forward strand \[[example](./test/output_test/test_read2_fw.qins)\]
+- \*_rv.qins - read counts of insertions mapping to reverse strand \[[example](./test/output_test/test_read2_rv.qins)\]
+- \*.qins - read counts of insertions mapping to both strands \[[example](./test/output_test/test_read2.qins)\]
 - \*.bam - file generated with the aligned reads
-- \*.log - log file with general features of the process run [example](./test/output_test/test_read2.log)
+- \*.log - log file with general features of the process run \[[example](./test/output_test/test_read2.log)\]
 
 ## Contact
 
