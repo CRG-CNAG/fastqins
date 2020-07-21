@@ -6,6 +6,7 @@
 # --------------------------------------------------
 # environment
 # --------------------------------------------------
+import glob
 import sys, os
 import argparse
 from fastqins.fastqins import fastqins as fq
@@ -22,11 +23,9 @@ def run_fastqins():
        ins_calling=options.ins_calling, zeroes=options.zeroes, keep_multiple=options.keep_multiple,
        rm_inter=options.rm_inter, verbose=options.verbose)
 
-    print('Moving files...')
     basename = options.tn_reads.split('/')[-1].split('.')[0]
     intermediate_dir = '{}/{}_intermediate_files/'.format(options.output_folder, basename)
     cmd = 'mv {}*.qins {}*.bam {}*.log {}/'.format(intermediate_dir, intermediate_dir, intermediate_dir, options.output_folder)
-    print(cmd)
     os.system(cmd)
 
     if options.rm_inter:
@@ -34,14 +33,25 @@ def run_fastqins():
         print(cmd)
         os.system(cmd)
 
-    print('Finished! You will find the following files in your directory:\n\t*_fw.qins - read counts of insertions mapping to forward strand\n\t*_rv.qins - read counts of insertions mapping to reverse strand\n\t*.qins - read counts of insertions mapping to both strands\n\t*.bam - file generated with the aligned reads\n\t*.log - log file with general features of the process run\n\n')
+
+    # Check proper execution
+    print('\n\nChecking output files properly generated...')
+    if len(glob.glob(options.output_folder+'*.qins'))>=1:
+        print('--> qins files:', glob.glob(options.output_folder+'*.qins'))
+    if len(glob.glob(options.output_folder+'*.bam'))==1:
+        print('--> bam file:', glob.glob(options.output_folder+'*.bam'))
+    if len(glob.glob(options.output_folder+'*.log'))==1:
+        print('--> log file properly generated.', glob.glob(options.output_folder+'*.log'))
+
+    print('\n\n Finished! \n You will find the following files in your directory:\n\t*_fw.qins - read counts of insertions mapping to forward strand\n\t*_rv.qins - read counts of insertions mapping to reverse strand\n\t*.qins - read counts of insertions mapping to both strands\n\t*.bam - file generated with the aligned reads\n\t*.log - log file with general features of the process run\n\n')
 
 
 # --------------------------------------------------
 # argument parser
 # --------------------------------------------------
 
-parser = argparse.ArgumentParser(description = "FastQins extracts insertion positions from a fastq file. Please cite ''")
+description = "FastQins extracts insertion positions from a fastq file \n\n-----\n\n"
+parser = argparse.ArgumentParser(description = description)
 parser.add_argument('-i', '--reads_with_tn',
                     dest="tn_reads",
                     required=True,
