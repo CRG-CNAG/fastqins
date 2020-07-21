@@ -62,6 +62,8 @@ To see additional arguments:
 fastqins --help
 ```
 
+You can see [here](./test/output_test/test_read2.svg) a flowchart of how FASTQINS works.
+
 ##  Output Information:
 
 The following files are generated as default output:
