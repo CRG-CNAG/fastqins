@@ -83,7 +83,6 @@ def validate_genome(genome, outgenome):
         handleout = open(outgenome, 'w')
         for record in SeqIO.parse(handle, 'genbank'):
             handleout.write(">{}\n{}".format(record.id, record.seq))
-            handleout.close()
         handle.close()
         handleout.close()
 
