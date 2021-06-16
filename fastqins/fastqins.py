@@ -48,7 +48,7 @@ def return_original_read_length(i):
     return len(subprocess.check_output(cmd, shell=True).strip())
 
 def return_genome_lentgh(genome):
-    if any([ext in genome for ext in ['gb', 'gbk', 'genbank']]):
+    if any([ext in genome for ext in ['gb', 'gbk', 'genbank', 'gbff']]):
         fmt = 'genbank'
     else:
         fmt = 'fasta'
