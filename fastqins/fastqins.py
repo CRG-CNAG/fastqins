@@ -80,11 +80,12 @@ def load_qins(i):
 def validate_genome(genome, outgenome):
     if genome!=outgenome:
         handle = open(genome, 'rU')
+        handleout = open(outgenome, 'w')
         for record in SeqIO.parse(handle, 'genbank'):
-            handleout = open(outgenome, 'w')
             handleout.write(">{}\n{}".format(record.id, record.seq))
             handleout.close()
         handle.close()
+        handleout.close()
 
 def create_log_file(output_file, kwargs):
     """ Creates log file """
