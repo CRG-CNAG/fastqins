@@ -347,7 +347,7 @@ def fastqins(tn_reads, genome,
     genome_id = genome.split('/')[-1].split('.')[0]
     genome_ex = genome.split('/')[-1].split('.')[-1]
     # Determine the file type:
-    if genome_ex in ['gb', 'gbk', 'genbank']:
+    if genome_ex in ['gb', 'gbk', 'genbank', 'gbff']:
         outgenome = '{}{}.fna'.format(intermediate_dir, genome_id)
     elif genome_ex in ['fa', 'fna', 'fasta', 'fast']:
         outgenome = genome
