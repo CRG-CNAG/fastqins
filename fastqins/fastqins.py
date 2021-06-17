@@ -205,7 +205,7 @@ def bed_insertion_calling(i, o, genome, orientation, zeroes):
     else:
         z = '-dz'
         correction = 1
-    cmd  = "{} genomecov {} -5 -strand {} -ibam {} -g {}".format(bedtools, '-dz', strand, i, genome)
+    cmd  = "{} genomecov {} -5 -strand {} -ibam {} -g {}".format(bedtools, z, strand, i, genome)
     cmd += " | awk '{print $1, $2+"+str(correction)+", $3}' > "+o
     os.system(cmd)
 
@@ -406,6 +406,7 @@ def fastqins(tn_reads, genome,
                                 filter     = formatter(),
                                 extras     = [tn_seq],
                                 output     = intermediate_dir+tn_basename+'.tn').follows(mkd).follows(fastqins_pipeline['rm_pcr_duplicates'])
+    #.active_if(os.path.isfile('{}{}.tn'.format(intermediate_dir, tn_basename))==False)
 
     # Barcode calling
     inputbc = paired_reads
@@ -432,6 +433,7 @@ def fastqins(tn_reads, genome,
                             input          = [fastqins_pipeline['tn_trimming'], '{}{}.1.bt2'.format(intermediate_dir, genome_id), create_log_file],
                             output         = intermediate_dir+tn_basename+'.sam',
                             extras         = [inputbc, kwargs]).follows(genome_indexing).follows(fastqins_pipeline['decompress_paired_reads'])
+    #.active_if(os.path.isfile('{}{}.sam'.format(intermediate_dir, tn_basename))==False)
 
     # Sam filtering by quality and length of reads
     if tn_reads_zip_check:
@@ -444,6 +446,7 @@ def fastqins(tn_reads, genome,
                                 filter     = suffix('.sam'),
                                 output     = "_filt.sam",
                                 extras     = [original_reads, keep_multiple])
+    #.active_if(os.path.isfile('{}{}_filt.sam'.format(intermediate_dir, tn_basename))==False)
     fastqins_pipeline.transform(task_func  = recover_header,
                                 input      = mapping,
                                 filter     = suffix('.sam'),
@@ -464,6 +467,7 @@ def fastqins(tn_reads, genome,
                             input          = [recover_header, len_mult_selection],
                             output         = intermediate_dir+tn_basename+outfmt,
                             extras         = [align_qual])
+    #.active_if(os.path.isfile('{}{}_filt.bam'.format(intermediate_dir, tn_basename))==False)
     for orientation in ['fw', 'rv']:
         fastqins_pipeline.transform(name       = '{}_{}_insertion_calling'.format(ins_calling, orientation),
                                     task_func  = f,
