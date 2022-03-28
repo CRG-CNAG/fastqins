@@ -307,7 +307,7 @@ def fastqins(tn_reads, genome,
              separate_orientations=1, rm_pcr=1, barcode_size=0, mismatches=0, extension='',
              threads=1, align_qual=10,
              ins_calling='bed', zeroes=False, keep_multiple=False,
-             rm_inter=0, verbose=False, printout_pipeline=True):
+             rm_inter=0, verbose=False, printout_pipeline=False):
     """ Main function to run the fastqins pipeline. """
 
     tn_seq = tn_seq.upper()
@@ -492,8 +492,8 @@ def fastqins(tn_reads, genome,
                             extras     = [tn_seq, genome, rm_pcr]).follows(fastqins_pipeline['count_insertions'])
 
     # Printout pipeline
-    if printout_pipeline:
-        fastqins_pipeline.printout_graph(stream = 'flowchart.svg',
+    if printout_pipeline and printout_pipeline!='0':
+        fastqins_pipeline.printout_graph(stream = printout_pipeline,
                                          pipeline_name   = 'fastqins | {} mode'.format(ins_calling),
                                          output_format   = 'svg',
                                          no_key_legend   = False,
@@ -598,8 +598,13 @@ if __name__=='__main__':
                         dest="verbose",
                         action="store_true",
                         help="increase output verbosity")
-    options = parser.parse_args()
+    parser.add_argument('-w', "--flowchart",
+                        default=False,
+                        dest="flowchart",
+                        type=str,
+                        help="Path to store flowchart of the pipeline. Ex. ./flowchart.svg")
 
+    options = parser.parse_args()
 
     fastqins(tn_reads=options.tn_reads  , paired_reads=options.paired_reads,
              tn_seq=options.tn_seq,
@@ -610,7 +615,7 @@ if __name__=='__main__':
              mismatches=options.mismatches, extension=options.extension,
              threads=options.threads, align_qual=options.align_qual,
              ins_calling=options.ins_calling, zeroes=options.zeroes, keep_multiple=options.keep_multiple,
-             rm_inter=options.rm_inter, verbose=options.verbose)
+             rm_inter=options.rm_inter, verbose=options.verbose, printout_pipeline=options.flowchart)
 
     print('Moving files...')
     basename = options.tn_reads.split('/')[-1].split('.')[0]

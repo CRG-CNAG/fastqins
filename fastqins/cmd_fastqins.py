@@ -21,7 +21,7 @@ def run_fastqins():
        mismatches=options.mismatches, extension=options.extension,
        threads=options.threads, align_qual=options.align_qual,
        ins_calling=options.ins_calling, zeroes=options.zeroes, keep_multiple=options.keep_multiple,
-       rm_inter=options.rm_inter, verbose=options.verbose)
+       rm_inter=options.rm_inter, verbose=options.verbose, printout_pipeline=options.flowchart)
 
     basename = options.tn_reads.split('/')[-1].split('.')[0]
     intermediate_dir = '{}/{}_intermediate_files/'.format(options.output_folder, basename)
@@ -133,7 +133,12 @@ parser.add_argument('-mult', "--keep_multiple",
 parser.add_argument('-v', "--verbose",
                     dest="verbose",
                     action="store_true",
-                    help="increase output verbosity")
+                    help="Increase output verbosity")
+parser.add_argument('-w', "--flowchart",
+                    default=False,
+                    dest="flowchart",
+                    type=str,
+                    help="Path to store flowchart of the pipeline. Ex. ./flowchart.svg")
 options = parser.parse_args()
 
 if __name__=='__main__':
