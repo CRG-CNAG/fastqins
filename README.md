@@ -24,7 +24,7 @@ In addition, we have as dependencies standard tools commonly used in high-throug
   [Samtools](http://www.htslib.org/)<br/>
   [Bedtools](https://bedtools.readthedocs.io/en/latest/)
 
-Path to this dependencies can still be defined by the user editing the file [dependencies](./fastqins/dependencies.py) and reinstalling FASTQINS.
+Path to these dependencies can still be defined by the user editing the file [dependencies](./fastqins/dependencies.py) and reinstalling FASTQINS.
 
 ## Installation & Help
 
