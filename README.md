@@ -24,6 +24,8 @@ In addition, we have as dependencies standard tools commonly used in high-throug
   [Samtools](http://www.htslib.org/)<br/>
   [Bedtools](https://bedtools.readthedocs.io/en/latest/)
 
+Except for Fastuniq, the other tools can be installed by sudo apt-get install <package name> or conda. 
+
 Path to these dependencies can still be defined by the user editing the file [dependencies](./fastqins/dependencies.py) and reinstalling FASTQINS.
 
 ## Installation & Help
@@ -54,7 +56,7 @@ Requirements to run an experiment are:
 As example, we included a pair of files that you can use to test the pipeline functioning as:
 
 ```bash
-fastqins -i ./test/test_read2.fastq.gz -i2 ./test/test_read1.fastq.gz -t TACGGACTTTATC -g ./test/NC_000912.fna -o test -v -r 0
+fastqins -i ./test/test_read2.fastq.gz -i2 ./test/test_read1.fastq.gz -t TACGGACTTTATC -g ./test/NC_000912.fna -o test -v -r 0 -rm_pcr 0
 ```
 
 To see additional arguments:

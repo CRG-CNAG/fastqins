@@ -271,7 +271,7 @@ def finish_log_file(i, o, tn_seq, genome, flag_pcr=False):
     cmd = "cat "+i[5]+ "| wc -l"
     nr_pos = int(subprocess.check_output(cmd, shell=True).strip())
     if nr_pos!=0:
-        cmd = "awk '{sum+=$3} END{print sum}' "+i[4]
+        cmd = "awk '{sum+=$3} END{print sum}' "+i[5]
         nr_post_reads = int(subprocess.check_output(cmd, shell=True).strip())
     else:
         nr_post_reads = 0
@@ -279,22 +279,31 @@ def finish_log_file(i, o, tn_seq, genome, flag_pcr=False):
     separator = '\n-----------------\n\n'
 
     with open(i[-1], 'a') as logfile:
-        logfile.write(separator+'FASTQINS INFORMATION:\n\n')
-        text = "{0} reads provided; of these:\n  ".format(int(nr_reads))+filt_line
-        text+= "\n    {0} ({1}%) presented the IR:{2} sequence; of these:\n      ".format(int(nr_IR), round(100.0*nr_IR/nr_remain, 2), tn_seq)
-        text+= "{0} having IR ({1}%) were mapped unambiguously; in total:\n        ".format(int(nr_Tn), round(100.0*nr_Tn/nr_IR, 2))
-        text+= "{0} insertion positions can be extracted from {1} reads\n".format(nr_pos, nr_post_reads)
-        text+= "{0}% of the sample was informative: ".format(round(100.0*nr_Tn/nr_reads, 2))
-        text+= "{0}% coverage (number of insertions per genome base).".format(round(100*int(nr_pos)/int(genome_length)))
+        logfile.write(separator + 'FASTQINS INFORMATION:\n\n')
+
+        # Summary of read filtering and IR detection
+        text  = f"{int(nr_reads)} reads provided; of these:\n  {filt_line}\n"
+        text += f"    {int(nr_IR)} ({round(100 * nr_IR / nr_remain, 2)}%) presented the IR:{tn_seq} sequence; of these:\n"
+        text += f"      {int(nr_post_reads)} having IR ({round(100 * nr_post_reads / nr_IR, 2)}%) were mapped unambiguously; in total:\n"
+        text += f"        {nr_pos} unique insertion positions can be extracted from {nr_post_reads} informative reads\n"
+        text += f"    {round(100 * nr_post_reads / nr_reads, 2)}% of the sample reads were informative: "
+        text += f"{round(100 * int(nr_pos) / int(genome_length), 2)}% coverage (number of insertions per genome base).\n"
+
         logfile.write(text)
-        logfile.write(separator+'OUTPUT INFORMATION:\n\n')
+
+        # Output file descriptions
+        logfile.write(separator + 'OUTPUT INFORMATION:\n\n')
         logfile.write('The following files are generated as default output:\n')
-        text  =  "\t- *_fw.qins - read counts of insertions mapping to forward strand\n"
-        text +=  "\t- *_rv.qins - read counts of insertions mapping to reverse strand\n"
-        text +=  "\t- *.qins - read counts of insertions mapping to both strands\n"
-        text +=  "\t- *.bam - file generated with the aligned reads. Allows visual revision and additional processing\n"
-        text +=  "\t- *.log - log file with general features of the process run\n"
-        logfile.write(text)
+
+        output_info = (
+            "\t- *_fw.qins - read counts of insertions mapping to forward strand\n"
+            "\t- *_rv.qins - read counts of insertions mapping to reverse strand\n"
+            "\t- *.qins    - read counts of insertions mapping to both strands\n"
+            "\t- *.bam     - file generated with the aligned reads. Allows visual revision and additional processing\n"
+            "\t- *.log     - log file with general features of the process run\n"
+        )
+
+        logfile.write(output_info)
 
 
 

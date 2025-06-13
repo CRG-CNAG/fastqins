@@ -71,7 +71,7 @@ parser.add_argument('-g', '--genome',
                     dest="genome",
                     required=True,
                     type=str,
-                    help="Genome of reference to map insertions. Default= /users/lserrano/www/reference_genome/mycoplasma_pneumoniae_m129.gbk")
+                    help="Genome of reference to map insertions")
 parser.add_argument('-o', '--output_folder',
                     dest="output_folder",
                     default="./",

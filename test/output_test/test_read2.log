@@ -16,12 +16,12 @@ version:FASTQINS v1.0
 
 GENERAL INFORMATION:
 
-Tn reads:/home/smiravet/crg/anubis/fastqins/test/test_read2.fastq.gz
-Paired reads:/home/smiravet/crg/anubis/fastqins/test/test_read2.fastq.gz
+Tn reads:./test/test_read2.fastq.gz
+Paired reads:./test/test_read1.fastq.gz
 TnSeq:TACGGACTTTATC
-Genome:/home/smiravet/crg/anubis/fastqins/test/NC_000912.fna
-OutDir:test/
-PCR dup removal:1
+Genome:./test/NC_000912.fna
+OutDir:test2/
+PCR dup removal:0
 Mismatches:0
 Mapping threads:1
 Minimum quality alignment:10
@@ -32,32 +32,33 @@ Keep reads multiple mapping:False
 
 BOWTIE2 ALIGN. INFORMATION:
 
-92904 reads; of these:
-  92904 (100.00%) were paired; of these:
-    92904 (100.00%) aligned concordantly 0 times
-    0 (0.00%) aligned concordantly exactly 1 time
-    0 (0.00%) aligned concordantly >1 times
+100000 reads; of these:
+  100000 (100.00%) were paired; of these:
+    16541 (16.54%) aligned concordantly 0 times
+    75343 (75.34%) aligned concordantly exactly 1 time
+    8116 (8.12%) aligned concordantly >1 times
     ----
-    92904 pairs aligned concordantly 0 times; of these:
-      0 (0.00%) aligned discordantly 1 time
+    16541 pairs aligned concordantly 0 times; of these:
+      5039 (30.46%) aligned discordantly 1 time
     ----
-    92904 pairs aligned 0 times concordantly or discordantly; of these:
-      185808 mates make up the pairs; of these:
-        103620 (55.77%) aligned 0 times
-        70954 (38.19%) aligned exactly 1 time
-        11234 (6.05%) aligned >1 times
-44.23% overall alignment rate
+    11502 pairs aligned 0 times concordantly or discordantly; of these:
+      23004 mates make up the pairs; of these:
+        12243 (53.22%) aligned 0 times
+        8205 (35.67%) aligned exactly 1 time
+        2556 (11.11%) aligned >1 times
+93.88% overall alignment rate
 
 -----------------
 
 FASTQINS INFORMATION:
 
-92904 reads provided; of these:
-  92904 (100.0%) passed the PCR duplicates filter; of these:
-    86455 (93.06%) presented the IR:TACGGACTTTATC sequence; of these:
-      49047 having IR (56.73%) were mapped unambiguously; in total:
-        47724 insertion positions can be extracted from 36424 reads
-52.79% of the sample was informative: 6% coverage (number of insertions per genome base).
+100000 reads provided; of these:
+  PCR duplicate removal not selected. 100000 considered; of these:
+    81066 (81.07%) presented the IR:TACGGACTTTATC sequence; of these:
+      76698 having IR (94.61%) were mapped unambiguously; in total:
+        46448 unique insertion positions can be extracted from 76698 informative reads
+    76.7% of the sample reads were informative: 5.69% coverage (number of insertions per genome base).
+
 -----------------
 
 OUTPUT INFORMATION:
@@ -65,6 +66,6 @@ OUTPUT INFORMATION:
 The following files are generated as default output:
 	- *_fw.qins - read counts of insertions mapping to forward strand
 	- *_rv.qins - read counts of insertions mapping to reverse strand
-	- *.qins - read counts of insertions mapping to both strands
-	- *.bam - file generated with the aligned reads. Allows visual revision and additional processing
-	- *.log - log file with general features of the process run
+	- *.qins    - read counts of insertions mapping to both strands
+	- *.bam     - file generated with the aligned reads. Allows visual revision and additional processing
+	- *.log     - log file with general features of the process run
